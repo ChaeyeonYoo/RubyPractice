@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= content_for(:title) || "Store" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= yield :head %>
+
+  <%# PWA manifest (선택) %>
+  <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
+
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+</head>
+
+<body>
+<nav>
+  <%= link_to "Home", root_path %>
+  <% if authenticated? %>
+    <%= button_to "Log out", session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Log in", new_session_path %>
+  <% end %>
+</nav>
+
+<main>
+  <%= yield %>
+</main>
+</body>
+</html>
