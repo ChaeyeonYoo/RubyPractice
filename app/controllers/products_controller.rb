@@ -1,13 +1,13 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
   allow_unauthenticated_access only: %i[ index show ]
+  around_action :switch_locale
 
   def index
     @products = Product.all
   end
 
   def show
-    @product = Product.find(params[:id])
   end
 
   def new
@@ -21,23 +21,6 @@ class ProductsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def edit
-    @product = Product.find(params[:id])
-  end
-  def update
-    @product = Product.find(params[:id])
-    if @product.update(product_params)
-      redirect_to @product
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  private
-  def product_params
-    params.expect(product: [ :name ])
   end
 
   def edit
@@ -57,6 +40,7 @@ class ProductsController < ApplicationController
   end
 
   private
+
   def set_product
     @product = Product.find(params[:id])
   end
@@ -65,17 +49,8 @@ class ProductsController < ApplicationController
     params.expect(product: [ :name, :description, :featured_image, :inventory_count ])
   end
 
-
-  # Only allow a list of trusted parameters through.
-  def product_params
-    params.expect(product: [ :name, :description, :featured_image ])
-  end
-
-  around_action :switch_locale
-
   def switch_locale(&action)
     locale = params[:locale] || I18n.default_locale
     I18n.with_locale(locale, &action)
   end
-
 end
