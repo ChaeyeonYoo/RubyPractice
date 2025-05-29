@@ -1,5 +1,5 @@
 module Product::Notifications
-  extend ActiveSupport::Concern
+  extend ActiveSupport::Concern ## 코드 중복을 없애기 위한 레일즈의 기능
 
   included do
     has_many :subscribers, dependent: :destroy

@@ -8,5 +8,4 @@ class ProductMailer < ApplicationMailer
     @product = params[:product]
     mail to: params[:subscriber].email
   end
-
 end
