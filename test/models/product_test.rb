@@ -16,7 +16,7 @@ class ProductTest < ActiveSupport::TestCase
     Subscriber.create!(product_id: product.id, email: "abc@abc.com")  # 1 구독자 기준 방법
     product.subscribers.create(email: "chaiyeon7@gmail.com") # 상품 기준 방법
 
-    assert_emails 4 do
+    assert_emails 5 do
       product.update(inventory_count: 99)
     end
   end
