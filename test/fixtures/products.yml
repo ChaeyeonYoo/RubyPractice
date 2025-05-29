@@ -1,4 +1,5 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# fixtures : test에서 사용할 가짜 데이터
 
 one:
   name: MyString
@@ -9,3 +10,7 @@ two:
 tshirt:
   name: T-Shirt
   inventory_count: 15
+
+chocolate:
+  name: Gana Chocolate
+  inventory_count: 5

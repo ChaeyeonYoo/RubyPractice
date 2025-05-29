@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    # 없으면 에러
   end
 
   def new
@@ -42,7 +43,11 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    @product = Product.find(params[:id])
+    begin
+      @product = Product.find(params[:id]) # db query
+    rescue ActiveRecord::RecordNotFound
+      redirect_to products_path, notice: "Product not found"
+    end
   end
 
   def product_params
